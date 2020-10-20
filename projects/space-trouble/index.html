@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-200">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora|Open+Sans:800" />
+</head>
+
+<body class="bg-white text-gray-800">
+  <header class="bg-gray-200 py-4">
+    <nav class="container font-extrabold text-xl w-full flex justify-between md:justify-start">
+      <a class="mx-4" href="/">Mark Hildreth</a>
+      <a class="mx-4" href="/projects">Projects</a>
+    </nav>
+  </header>
+  <div>
+    <div class="container">
+      <section class="section mt-4">
+        
+<h1 id="space-trouble">Space Trouble<a class="anchor-link" href="#space-trouble">#</a>
+</h1>
+<ul>
+<li><a href="https://github.com/markhildreth/space_trouble">GitHub</a></li>
+</ul>
+<p>&quot;Space Trouble is in development as a game to be played during a space-themed party (unfortunately
+delayed until after the Coronovirus apocalypse).  It is my way of learning embedded development past
+the quick examples seen on Arduino tutorial projects. The project itself takes inspiration from the
+party game app <a href="https://spaceteam.ca/">Space Team</a>.</p>
+<p>The idea of Space Trouble is that each of three players has in front of them a panel of buttons and
+knobs, along with a screen instructing them what control needs twiddling to keep the ship sailing
+smoothly. </p>
+<div>
+  <div class="mb-8 flex flex-col items-center">
+    <a class="mb-2" href="panel.png">
+      <img class="m-auto" width="600" alt="Picture of panel" src="https:&#x2F;&#x2F;markhildreth.github.io&#x2F;processed_images&#x2F;ce7d5885148ea62700.png"></img>
+    </a>
+    <small>
+      Prototype panel. One thing I learned from the prototype is that the buttons I
+  use on the left have built-in debouncing, but sometimes require more effort
+  than expected to register a &quot;push&quot;. The final panel will most likely have an
+  LED next to the buttons to give feedback to the user that the button was
+  pressed enough to register.
+    </small>
+  </div>
+</div>
+<p>The catch is that although your panel's screen might be telling you to &quot;Enable the Gelatinous
+Darkbucket&quot;, the Gelatinous Darkbucket control may in fact be on someone else's panel. Therefore,
+players must communicate with each other (which often takes the form of chaotic yelling).</p>
+<h2 id="current-status">Current Status<a class="anchor-link" href="#current-status">#</a>
+</h2>
+<p>Currently, I have developed a prototype panel which runs the game in its entirety, which is shown
+below. The next step will be to create three such panels, each with a module to enable wireless
+communication with the others.</p>
+<p>The game flow goes as follows:</p>
+<ul>
+<li>The system is turned on. The user gets a &quot;Press any button to start.&quot;</li>
+<li>The game begins. The user is given directions. If they perform an incorrect input, they lose two
+hull points. If the timer runs out before performing the input, they lose 4 hull points.</li>
+<li>The &quot;distance&quot; is constantly increasing, working as a score.</li>
+<li>When the hull finally hits zero, there is a game over screen showing the score for five seconds.</li>
+<li>Then the system goes back to &quot;Press any button to start.&quot;</li>
+</ul>
+<h2 id="implementation">Implementation<a class="anchor-link" href="#implementation">#</a>
+</h2>
+<div class="md:float-right md:ml-4">
+  <div class="mb-8 flex flex-col items-center">
+    <a class="mb-2" href="wiring.png">
+      <img class="m-auto" width="200" alt="Image of Inside of Box Wiring" src="https:&#x2F;&#x2F;markhildreth.github.io&#x2F;processed_images&#x2F;025e1b4ae0aeece000.png"></img>
+    </a>
+    <small>
+      The wiring on the inside of the box.
+    </small>
+  </div>
+</div>
+<p>The prototype panel has been implemented using a <a href="https://www.adafruit.com/product/2772">Feather M0</a>
+development board. The <a href="https://github.com/markhildreth/space_trouble">software</a> itself is
+implemented in Rust.</p>
+<p>Some general ideas regarding programming this in Rust:</p>
+<ul>
+<li>Early on, there were some hickups getting the item to upload. I think this is because, despite the
+fact that the Feather M0 is a well-supported board, some of the documentation for it is copy-paste
+and led me down a rabbit hole to try to upload using different boot loader instructions. I'm
+trying to verify that this is the case and will create an issue if that is the case.</li>
+<li>The Rust crates out there split between using hal-embedded and not, but the ones that do make it
+easy to put stuff together.</li>
+<li>Once I hit a point where I was able to constantly get things working, I found that I was able to
+do massive refactorings until I compiled, plug it in, and things &quot;just worked.&quot;</li>
+</ul>
+
+
+      </section>
+    </div>
+  </div>
+  <footer class="bg-gray-200 mx-auto mt-16 h-12 clear-both">
+  </footer>
+</body>
+
+</html>

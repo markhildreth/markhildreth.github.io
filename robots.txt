@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://markhildreth.github.io/sitemap.xml
