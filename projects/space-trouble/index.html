@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title></title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="/">markhildreth.me</a>
+      <a href="/projects">Projects</a>
+    </nav>
+  </header>
+  <section>
+    
+<h1 id="space-trouble">Space Trouble</h1>
+<ul>
+<li><a href="https://github.com/markhildreth/space_trouble">GitHub</a></li>
+</ul>
+<p>&quot;Space Trouble is in development as a game to be played during a space-themed party (unfortunately
+delayed until after the Coronovirus apocalypse).  It is my way of learning embedded development past
+the quick examples seen on Arduino tutorial projects. The project itself takes inspiration from the
+party game app <a href="https://spaceteam.ca/">Space Team</a>.</p>
+<p>The idea of Space Trouble is that each of three players has in front of them a panel of buttons and
+knobs, along with a screen instructing them what control needs twiddling to keep the ship sailing
+smoothly. </p>
+
+<div class="thumbnail">
+
+  
+    <a href="panel.png">
+      <img width="600" alt="Picture of panel" src="https:&#x2F;&#x2F;markhildreth.github.io&#x2F;processed_images&#x2F;ad81d8a5aec106d900.png"></img>
+    </a>
+    <small>
+      Prototype panel. One thing I learned from the prototype is that the buttons I
+  use on the left have built-in debouncing, but sometimes require more effort
+  than expected to register a &quot;push&quot;. The final panel will most likely have an
+  LED next to the buttons to give feedback to the user that the button was
+  pressed enough to register.
+    </small>
+</div>
+<p>The catch is that although your panel's screen might be telling you to &quot;Enable the Gelatinous
+Darkbucket&quot;, the Gelatinous Darkbucket control may in fact be on someone else's panel. Therefore,
+players must communicate with each other (which often takes the form of chaotic yelling).</p>
+<h2 id="current-status">Current Status</h2>
+<p>Currently, I have developed a prototype panel which runs the game in its entirety, which is shown
+below. The next step will be to create three such panels, each with a module to enable wireless
+communication with the others.</p>
+<p>The game flow goes as follows:</p>
+<ul>
+<li>The system is turned on. The user gets a &quot;Press any button to start.&quot;</li>
+<li>The game begins. The user is given directions. If they perform an incorrect input, they lose two
+hull points. If the timer runs out before performing the input, they lose 4 hull points.</li>
+<li>The &quot;distance&quot; is constantly increasing, working as a score.</li>
+<li>When the hull finally hits zero, there is a game over screen showing the score for five seconds.</li>
+<li>Then the system goes back to &quot;Press any button to start.&quot;</li>
+</ul>
+<h2 id="implementation">Implementation</h2>
+
+<div class="thumbnail float-right">
+
+  
+    <a href="wiring.png">
+      <img width="200" alt="Image of Inside of Box Wiring" src="https:&#x2F;&#x2F;markhildreth.github.io&#x2F;processed_images&#x2F;f043d1455af048fd00.png"></img>
+    </a>
+    <small>
+      The wiring on the inside of the box.
+    </small>
+</div>
+<p>The prototype panel has been implemented using a <a href="https://www.adafruit.com/product/2772">Feather M0</a>
+development board. The <a href="https://github.com/markhildreth/space_trouble">software</a> itself is
+implemented in Rust.</p>
+<p>Some general ideas regarding programming this in Rust:</p>
+<ul>
+<li>Early on, there were some hickups getting the item to upload. This was because, despite the
+fact that the Feather M0 is a well-supported board, I had an earlier version that did not
+end up having the same boot loader as later versions. This led me down a rabbit hole to try to
+upload using boot loader instructions that would never have worked for my device. I ended up
+<a href="https://github.com/atsamd-rs/atsamd/commit/011ba2b71822553f08880def71147a407ccdca8e">updating the documentation</a> for this.</li>
+<li>The Rust crates out there split between using hal-embedded and not, but the ones that do use
+<code>hal-embedded</code>i make it easier to put stuff together.</li>
+<li>Once I hit a point where I was able to constantly get things compiled/uploaded, I found that I was
+able to do massive refactorings until I compiled, plug it in, and things &quot;just worked.&quot;</li>
+</ul>
+
+
+  </section>
+</body>
+
+</html>
